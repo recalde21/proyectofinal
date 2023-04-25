@@ -1,0 +1,31 @@
+{% extends '../main.html' %}
+{% load static %}
+{% block content %}
+<div class="container mx-auto mt-2">
+	<!-- BLOGS -->
+	{% if blogs|length > 0 %}
+	<div class="row justify-content-center mt-5">
+		<h3 class="mt-5">Páginas</h3>
+		{% for blog in blogs %}
+		<div class="card col-md-4 col-sm-8 col-lg-6 mx-2 bg-color-dark mb-3" style="width: 22rem;">
+			<div class="card-body">
+				<div class="card-image-container mb-2">
+					<a href="{% url 'page' %}?id={{blog.id}}">
+						<img class="card-img-top mt-0 img-card" src="{% static '../media/' %}{{blog.imagen}}" alt="Card image cap">
+					</a>
+				</div>
+				<h4>{{blog.titulo}}</h4>
+			</div>
+			<div class="card-footer mb-2">
+				<a href="{% url 'page' %}?id={{blog.id}}" class="btn btn-outline-dark w-100">Más info.</a>
+			</div>
+		</div>
+		{% endfor %}
+	</div>
+	{% else %}
+	<div class="container mt-5 mb-3">
+		<h4>No hay páginas aún.</h4>
+	</div>
+	{% endif %}
+	</div>
+{% endblock content %}

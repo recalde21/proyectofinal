@@ -1,0 +1,47 @@
+{% extends '../main.html' %}
+{% load static %}
+
+{% block content %}
+<div class="container mx-auto mt-5 mb-5">
+	<div class="row col-lg-10 col-md-8 mx-auto">
+		<div class="p-4">
+			<h2>Perfil de usuario</h2>
+			{% if perfil.imagen == "" %}
+				<img style="max-width: 300px; max-height: 300px;" src="https://cdn-icons-png.flaticon.com/512/6522/6522516.png" alt="imagen de perfil">
+			{% else %}
+				<img style="max-width: 300px; max-height: 300px;" src="{% static '../media/' %}{{perfil.imagen}}" alt="imagen de perfil">
+			{% endif %}
+			<p>Nombre: {{user.username}}</p>
+			<p>Email: {{user.email}}</p>
+			{% if perfil.descripcion != None %}
+				<p>Descripción: {{perfil.descripcion}}</p>
+			{% endif %}
+			{% if perfil.link != None %}
+				<p>Enlace a web: <a href="{{perfil.link}}">{{perfil.link}}</a></p>
+			{% endif %}
+			<a class="btn btn-outline-success" href="{% url 'editprofile' %}">Editar datos</a>
+			<br>
+			<a class="btn btn-outline-success" href="{% url 'mensajes' %}">Leer mensajes</a>
+			<br>
+			<a class="btn btn-outline-success" href="{% url 'createpage' %}">Nueva página</a>				<br>
+			<br>
+			{% if paginas|length > 0 %}
+				<h3>Páginas</h3>
+				{% for pagina in paginas %}
+					<img src="{% static '../media/' %}{{pagina.imagen}}" style="max-width: 300px; max-height: 300px;" alt="imagen de pagina">
+					<p>Título: <a href="{% url 'page' %}?id={{pagina.id}}">{{pagina.titulo}}</a></p>
+					<p>Fecha: {{pagina.fecha}}</p>
+					<form method="POST">
+						{% csrf_token %}
+						<button class="btn btn-outline-success" type="submit" name="editar" value="{{pagina.id}}">Editar página</button>
+						<button class="btn btn-outline-danger" type="submit" name="eliminar" value="{{pagina.id}}">Eliminar página</button>
+					</form>
+					<hr>
+				{% endfor %}
+			{% else %}
+				<h3>No hay páginas creadas.</h3>
+			{% endif %}
+		</div>
+	</div>
+</div>
+{% endblock %}

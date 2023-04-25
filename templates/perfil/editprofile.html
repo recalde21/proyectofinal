@@ -1,0 +1,25 @@
+{% extends '../main.html' %}
+{% load static %}
+
+{% block content %}
+<div class="container mx-auto mt-5 mb-5">
+	<div class="row col-lg-6 col-md-8 mx-auto border border-2 border-success">
+		<div class="p-4">
+			<h2>Editar perfil</h2>
+			<form class="form" action="" method="POST" enctype="multipart/form-data">
+				{% csrf_token %}
+                <label for="link">{{form.link.label}}</label>
+                {{form.link}}
+				<label for="descripcion">{{form.descripcion.label}}</label>
+                {{form.descripcion}}
+				<label for="imagen">{{form.imagen.label}}</label>
+                {{form.imagen}}
+				<div class="d-flex justify-content-center mt-4">
+					<button type="submit" class="btn btn-success btn-lg btn-block">Editar</button>
+					<a href="{% url 'profile' %}" class="btn btn-dark btn-lg btn-block">Cancelar</a>
+				</div>
+			</form>
+		</div>
+	</div>
+</div>
+{% endblock %}

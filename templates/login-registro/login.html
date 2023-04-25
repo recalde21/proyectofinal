@@ -1,0 +1,29 @@
+{% extends '../main.html' %}
+{% load static %}
+
+{% block content %}
+<div class="container mx-auto mt-5 mb-5">
+    <!-- Formulario de login -->
+    <div class="row col-lg-6 col-md-8 mx-auto border border-2 border-success">
+        <div class="p-4">
+            <form method="POST">
+                {% csrf_token %}
+                <h2>Inicio de sesión</h2>
+                <br>
+                <label for="username">{{form.username.label}}</label>
+                {{form.username}}
+                <label for="username">{{form.password.label}}</label>
+                {{form.password}}
+                <br>
+                <p>{{mensaje}}</p>
+                <!--a href="{% url 'password_reset' %}">Olvidé mi Contraseña</a-->
+                <input class="mx-auto d-flex btn btn-success" type="submit" value="Ingresar">
+            </form>
+            <hr />
+        </div>
+        <div class="p-4 d-flex justify-content-center">
+            <a class="btn btn-success" href="{% url 'register' %}">Registrar Usuario</a>
+        </div>
+    </div>
+</div>
+{% endblock %}

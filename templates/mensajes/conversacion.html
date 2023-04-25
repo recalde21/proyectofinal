@@ -1,0 +1,53 @@
+{% extends '../main.html' %}
+{% load static %}
+
+{% block content %}
+<div class="container mx-auto mt-5 mb-5">
+	<div class="row col-lg-10 col-md-8 mx-auto">
+		<div class="p-4">
+        {% if chats|length > 0 %}
+			<h2>Conversacion con {{destinatario}}</h2>
+            <hr>
+            {% for chat in chats %}
+            {% if chat.usuario_rem == user.usuario or chat.usuario_dest == user.usuario %}
+            <div class="row">
+                <div class="row">
+                    <div class="col-1">
+                        {% if user.imagen == "" %}
+                        <img src="https://cdn-icons-png.flaticon.com/512/6522/6522516.png" style="max-width: 25px; max-height: 25px;" alt="imagen de perfil">
+                        {% elif destinatario.imagen == "" %}
+                        <img src="https://cdn-icons-png.flaticon.com/512/6522/6522516.png" style="max-width: 25px; max-height: 25px;" alt="imagen de perfil">
+                        {% elif chat.usuario_rem.username == user.username %}
+                        <img src="{% static '../media/' %}{{user.image}}" style="max-width: 25px; max-height: 25px;" alt="imagen de perfil">
+                        {% elif chat.usuario_rem.username == destinatario.username %}
+                        <img src="{% static '../media/' %}{{destinatario.image}}" style="max-width: 25px; max-height: 25px;" alt="imagen de perfil">
+                        {% endif %}
+                    </div>
+                    <div class="col">
+                        <h4>{{chat.usuario_rem}}</h4>
+                    </div>
+                </div>
+                <div class="row">
+                    <p>{{chat.mensaje}}</p>
+                </div>
+                <div class="row">
+                    <p>{{chat.fecha}}</p>
+                </div>
+                <hr>
+            </div>
+            {% endif %}
+            {% endfor %}
+        {% else %}
+        <p>No hay conversaciones.</p>
+        {% endif %}
+        <br>
+        <hr>
+        <form method="POST">
+            {% csrf_token %}
+            <input type="text" name="mensaje">
+            <button type="submit">Enviar</button>
+        </form>
+		</div>
+	</div>
+</div>
+{% endblock %}

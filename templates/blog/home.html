@@ -1,0 +1,17 @@
+{% extends '../main.html' %}
+{% load static %}
+
+{% block content %}
+<div class="container mx-auto mt-5 mb-5">
+    <!-- Formulario de login -->
+    <div class="row col-lg-6 col-md-8 mx-auto">
+        <div class="p-4 text-center">
+            <h3>BIENVENIDOS</h3>
+            <img src="{% static '../media/homeimg.jpg' %}" alt="">
+            <br>
+            <br>
+            <a class="btn btn-dark btn-lg" href="{% url 'pages' %}"> Ingresar </a>
+        </div>
+    </div>
+</div>
+{% endblock content %}

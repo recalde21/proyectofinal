@@ -1,0 +1,18 @@
+{% extends '../main.html' %}
+{% load static %}
+
+{% block content %}
+<div class="container mx-auto mt-5 mb-5">
+    <!-- Formulario de login -->
+    <div class="row col-lg-6 col-md-8 mx-auto">
+        <div class="p-4 text-center">
+            <h3>Sobre mi</h3>
+            <p>Mi nombre es Federico Recalde y tengo 33 años.
+                Este es el resultado del proyecto final del curso de Python.
+                Espero que sea de su agrado. Gracias.
+            </p>
+            <img style="max-width: 300px; max-height: 300px;" src="{% static '../media/aboutimg.jpg' %}" alt="">
+        </div>
+    </div>
+</div>
+{% endblock content %}

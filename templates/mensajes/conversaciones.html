@@ -1,0 +1,94 @@
+{% extends '../main.html' %}
+{% load static %}
+
+{% block content %}
+<div class="container mx-auto mt-5 mb-5">
+	<div class="row col-lg-10 col-md-8 mx-auto">
+		<div class="p-4">
+        {% if recibidos|length > 0 %}
+			<h2>Mensajes recibidos</h2>
+            <hr>
+            {% for chat in recibidos %}
+            {{chat.usuario_dest.username}}{{username}}
+            {% if chat.usuario_dest.username == username %}
+            <div class="row">
+                <div class="row">
+                    <div class="col-1">
+                    {% for perfil in perfiles %}
+                    {% if chat.usuario_rem == perfil.usuario %}
+                        {% if perfil.imagen == "" %}
+                        <img src="https://cdn-icons-png.flaticon.com/512/6522/6522516.png" style="max-width: 25px; max-height: 25px;" alt="imagen de perfil">
+                        {% else %}
+                        <img src="{% static '../media/' %}{{perfil.image}}" style="max-width: 25px; max-height: 25px;" alt="imagen de perfil">
+                        {% endif %}
+                    {% endif %}
+                    {% endfor %}
+                    </div>
+                    <div class="col">
+                        <h4>{{chat.usuario_rem}}</h4>
+                    </div>
+                </div>
+                <div class="row">
+                    <p>{{chat.mensaje}}</p>
+                </div>
+                <div class="row">
+                    <p>{{chat.fecha}}</p>
+                </div>
+                <form method="POST">
+                    {% csrf_token %}
+                    <button class="btn btn-outline-success mb-2" type="submit" name="mensajear" value="{{chat.usuario_rem.id}}">Responder</button>
+                </form>
+                <hr>
+            </div>
+            {% endif %}
+            {% endfor %}
+        {% else %}
+        <p>No hay conversacisssones.</p>
+        {% endif %}
+
+        <hr>
+
+        {% if enviados|length > 0 %}
+			<h2>Mensajes enviados</h2>
+            <hr>
+            {% for chat in enviados %}
+            {{chat.usuario_rem.username}}{{username}}
+            {% if chat.usuario_rem.username == username %}
+            <div class="row">
+                <div class="row">
+                    <div class="col-1">
+                    {% for perfil in perfiles %}
+                    {% if chat.usuario_dest == perfil.usuario %}
+                        {% if perfil.imagen == "" %}
+                        <img src="https://cdn-icons-png.flaticon.com/512/6522/6522516.png" style="max-width: 25px; max-height: 25px;" alt="imagen de perfil">
+                        {% else %}
+                        <img src="{% static '../media/' %}{{perfil.image}}" style="max-width: 25px; max-height: 25px;" alt="imagen de perfil">
+                        {% endif %}
+                    {% endif %}
+                    {% endfor %}
+                    </div>
+                    <div class="col">
+                        <h4>{{chat.usuario_dest}}</h4>
+                    </div>
+                </div>
+                <div class="row">
+                    <p>{{chat.mensaje}}</p>
+                </div>
+                <div class="row">
+                    <p>{{chat.fecha}}</p>
+                </div>
+                <form method="POST">
+                    {% csrf_token %}
+                    <button class="btn btn-outline-success mb-2" type="submit" name="mensajear" value="{{chat.usuario_dest.id}}">Enviar otro</button>
+                </form>
+                <hr>
+            </div>
+            {% endif %}
+            {% endfor %}
+        {% else %}
+        <p>No hay conversacisssones.</p>
+        {% endif %}
+		</div>
+	</div>
+</div>
+{% endblock %}
